@@ -10,9 +10,6 @@ using array_t =  std::array<row_t<T, W>, H>;
 
 
 template <int W, int H, typename T> class Matrix {
-private:
-    array_t<W, H, T> data;
-
 public:
     Matrix(const array_t<W, H, T>& input) : data(input) {}
     Matrix(){
@@ -119,6 +116,10 @@ public:
         result[2][2] =  (data[0][0] * data[1][1] - data[0][1] * data[1][0]) * invDet;
         return Matrix(result);
     }
+
+private:
+    array_t<W, H, T> data;
+
 };
 
 //template instantiation 
