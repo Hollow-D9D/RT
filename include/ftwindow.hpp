@@ -8,17 +8,19 @@ struct GLFWwindow;
 class ftwindow
 {
 public:
-    ftwindow() {}
-    bool init(const char* windowName, uint32_t width = SCR_WIDTH, uint32_t height = SCR_HEIGHT);
+
+    static ftwindow& getInstance();
+
+    bool init(const char* windowName, int, char*[], uint32_t width = SCR_WIDTH, uint32_t height = SCR_HEIGHT);
     bool makeContext();
 
-    void setFrameBufferSizeCallback(void (*func) (GLFWwindow *, int, int));
-
-    void render();
-
-    void processInput();
+    static void render();
 
 private:
 
+    ftwindow() {}
+
+    uint32_t _width;
+    uint32_t _height;
     GLFWwindow* window;
 };

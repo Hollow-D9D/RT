@@ -18,6 +18,8 @@
                 "-o",
                 "${workspaceFolder}/main.exe",
                 "-framework",
+                "GLUT",
+                "-framework",
                 "OpenGL",
             ],
             "options": {

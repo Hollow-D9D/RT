@@ -1,77 +1,58 @@
 #include <iostream>
-#include "glad/glad.h"
+#include <OpenGL/gl.h>
+#include <GLUT/glut.h>
 #include "GLFW/glfw3.h"
 #include "ftwindow.hpp"
 
-bool ftwindow::init(const char* windowName, uint32_t width, uint32_t height)
+static void PixelPut(int32_t x, int32_t y)
 {
-    // glfw: initialize and configure
-	// ------------------------------
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //uncomment this statement to fix compilation on OS X
-#endif
-	// glfw window creation
-	// --------------------
-	window = glfwCreateWindow(width, height, windowName, NULL, NULL);
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
+	glClear(GL_COLOR_BUFFER_BIT); // Clear the color buffer
+
+    glPointSize(1.0); // Set the point size to 1 pixel
+
+    glBegin(GL_POINTS); // Begin drawing points
+    glColor3f(1.0, 0.0, 1.0); // Set color to red
+    glVertex2f(x, y); // Specify the vertex (position) of the point
+    glEnd(); // End drawing points
+
+    glFlush(); // Flush OpenGL buffer
+}
+
+ftwindow& ftwindow::getInstance()
+{
+    static ftwindow instance;
+    return instance;
+}
+
+
+bool ftwindow::init(const char* windowName, int argc, char* argv[], uint32_t width, uint32_t height)
+{
+    glutInit(&argc, argv); // Initialize GLUT
+    glutCreateWindow("Pixel Drawing Example"); // Create a window with the given title
+   	glutDisplayFunc(ftwindow::render);
+    
+    _width = width;
+    _height = height;
+    
+    glutMainLoop();
+    
     return 0;
 }
 
-bool ftwindow::makeContext()
-{
-    glfwMakeContextCurrent(window);
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
-	}
-    return 0;
-}
-
-void ftwindow::setFrameBufferSizeCallback(void (*func) (GLFWwindow *, int, int))
-{
-	glfwSetFramebufferSizeCallback(window, func);
-}
 
 void ftwindow::render()
 {
-    // render loop
-	// -----------
-	while (!glfwWindowShouldClose(window))
-	{
-		// input
-		// -----
-		processInput();
-		
-		// render
-		// ------
-		glClearColor(0.5f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+    uint32_t width = ftwindow::getInstance()._width;
+    uint32_t height = ftwindow::getInstance()._height;
+    std::cout << height << '\n' << width << std::endl;
 
-		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-		// -------------------------------------------------------------------------------
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
-
-    glfwTerminate();
+    PixelPut(width / 4, height / 4);
+    // for(int32_t i = 0 - height * 0.5; i < height * 1.5; i++)
+    // {
+    //     for(int32_t j = 0 - height * 0.5; j < width * 1.5; j++)
+    //     {
+    //     	PixelPut(i, j);
+    //     }
+    // }
 }
 
-
-
-void ftwindow::processInput()
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-}
