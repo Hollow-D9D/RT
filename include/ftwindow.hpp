@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include "Input.hpp"
 #define SCR_WIDTH 800
 #define SCR_HEIGHT 600
 

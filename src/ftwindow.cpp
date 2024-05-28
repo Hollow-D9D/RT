@@ -30,12 +30,10 @@ bool ftwindow::init(const char* windowName, int argc, char* argv[], uint32_t wid
     glutInit(&argc, argv); // Initialize GLUT
     glutCreateWindow("Pixel Drawing Example"); // Create a window with the given title
    	glutDisplayFunc(ftwindow::render);
-    
     _width = width;
     _height = height;
-    
+    glutKeyboardFunc(Input::keyboardCallback);
     glutMainLoop();
-    
     return 0;
 }
 
