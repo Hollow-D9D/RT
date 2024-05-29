@@ -1,2 +1,2 @@
-export "DYLD_LIBRARY_PATH=/Users/agnesaavetyan/Desktop/RT/lib"
+export "DYLD_LIBRARY_PATH=/home/user/Desktop/RT/lib"
 ./main.exe

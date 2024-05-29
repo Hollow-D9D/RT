@@ -1,4 +1,4 @@
-#include "../include/Color.hpp"
+#include "Color.hpp"
 
 Color::Color() : color(0), r(0), g(0), b(0), a(0) {}
 
@@ -92,49 +92,3 @@ void Color::setA(float a)
     this->color = (this->color & 0x00FFFFFF) | (convertRangeTo255(this->a) << 24);
 }
 
-
-static void PixelPut(int32_t x, int32_t y, const Color& color)
-{
-    glClear(GL_COLOR_BUFFER_BIT); // Clear the color buffer
-
-    glPointSize(1.0); // Set the point size to 1 pixel
-
-    glBegin(GL_POINTS); // Begin drawing points
-    glColor4f(color.getR(), color.getG(), color.getB(), color.getA()); // Set color using the Color class
-    glVertex2f(static_cast<float>(x), static_cast<float>(y)); // Specify the vertex (position) of the point
-    glEnd(); // End drawing points
-
-    glFlush(); // Flush OpenGL buffer
-}
-
-// Display callback for OpenGL
-void display()
-{
-    // Example coordinates for the pixel
-    int32_t x = 100;
-    int32_t y = 100;
-
-    // Create a red color using the Color class
-    Color redColor(255, 0, 0, 255);
-
-    // Call the PixelPut function
-    PixelPut(x, y, redColor);
-}
-
-// Main function
-int main(int argc, char** argv)
-{
-    glutInit(&argc, argv); // Initialize the GLUT library
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); // Set the display mode
-    glutInitWindowSize(500, 500); // Set the window size
-    glutInitWindowPosition(100, 100); // Set the window position
-    glutCreateWindow("OpenGL PixelPut Example"); // Create the window with a title
-
-    glClearColor(1.0, 1.0, 1.0, 1.0); // Set the background color to white
-    gluOrtho2D(0.0, 500.0, 0.0, 500.0); // Set the coordinate system for the window
-
-    glutDisplayFunc(display); // Set the display callback function
-    glutMainLoop(); // Enter the GLUT event processing loop
-
-    return 0;
-}
