@@ -2,12 +2,12 @@
 
 #include <iostream>
 #include <stdint.h>
-#include <OpenGL/gl.h>
-#include <GLUT/glut.h>
-#include "GLFW/glfw3.h"
-// #include <GL/gl.h>
-// #include <GL/glu.h>
-// #include <GL/glut.h> 
+// #include <OpenGL/gl.h>
+// #include <GLUT/glut.h>
+// #include "GLFW/glfw3.h"
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h> 
 
 class Color
 {

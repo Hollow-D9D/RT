@@ -1,41 +1,3 @@
-{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "shell",
-            "label": "C/C++: g++.exe build active file",
-            "command": "g++",
-            "args": [
-                "-std=c++17",
-                "-fdiagnostics-color=always",
-                "-Wall",
-                "-g",
-                "-I${workspaceFolder}/include",
-                "-L${workspaceFolder}/lib",
-                "${workspaceFolder}/lib/libglfw.3.dylib",
-                "${workspaceFolder}/src/glad.c",
-                "${workspaceFolder}/src/*.cpp",
-                "-o",
-                "${workspaceFolder}/main.exe",
-                "-framework",
-                "GLUT",
-                "-framework",
-                "OpenGL"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            }
-        }
-    ]
-}
-
 // {
 //     "version": "2.0.0",
 //     "tasks": [
@@ -50,14 +12,15 @@
 //                 "-g",
 //                 "-I${workspaceFolder}/include",
 //                 "-L${workspaceFolder}/lib",
-//                 "-lglfw",
+//                 "${workspaceFolder}/lib/libglfw.3.dylib",
 //                 "${workspaceFolder}/src/glad.c",
 //                 "${workspaceFolder}/src/*.cpp",
 //                 "-o",
 //                 "${workspaceFolder}/main.exe",
-//                 "-lGL",
-//                 "-lGLU",
-//                 "-lglut"
+//                 "-framework",
+//                 "GLUT",
+//                 "-framework",
+//                 "OpenGL"
 //             ],
 //             "options": {
 //                 "cwd": "${workspaceFolder}"
@@ -72,4 +35,41 @@
 //         }
 //     ]
 // }
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: g++.exe build active file",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-g",
+                "-I${workspaceFolder}/include",
+                "-L${workspaceFolder}/lib",
+                "-lglfw",
+                "${workspaceFolder}/src/glad.c",
+                "${workspaceFolder}/src/*.cpp",
+                "-o",
+                "${workspaceFolder}/main.exe",
+                "-lGL",
+                "-lGLU",
+                "-lglut"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
+}
 
